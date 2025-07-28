@@ -12,7 +12,7 @@
 # for a subset of the cross-compiled target architectures
 # that Base is built for.
 # CROSS_COMPILER_TARGET_ARCHS = RTEMS-beatnik linux-x86 linux-x86_64
-CROSS_COMPILER_TARGET_ARCHS = rhel7-x86_64
+CROSS_COMPILER_TARGET_ARCHS = rhel7-x86_64 rhel9-x86_64
 
 # If you do NOT want to build for the host architecture,
 # clear BUILD_FOR_HOST_ARCH
@@ -28,4 +28,16 @@ CROSS_COMPILER_TARGET_ARCHS = rhel7-x86_64
 # If you don't want to install into $(TOP) then
 # define INSTALL_LOCATION here
 #INSTALL_LOCATION=<fullpathname>
+## =============================
+## Build Application Statically
+## =============================
+#SHARED_LIBRARIES=NO
+#STATIC_BUILD=YES
 
+PCRE=YES
+PCRE_PACKAGE_NAME=pcre2
+#adjust this as needed
+PCRE_VERSION=10.45
+PCRE_TOP=$(PSPKG_ROOT)/release/$(PCRE_PACKAGE_NAME)/$(PCRE_VERSION)
+PCRE_LIB=$(PCRE_TOP)/$(EPICS_HOST_ARCH)/lib
+PCRE_INCLUDE=$(PCRE_TOP)/$(EPICS_HOST_ARCH)/include

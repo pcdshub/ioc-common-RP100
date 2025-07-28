@@ -5,9 +5,11 @@ ifneq (,$(IOC_APPL_TOP))
 TOP = $(IOC_APPL_TOP)
 endif
 
+ARCH=$(EPICS_HOST_ARCH)
+
 include $(TOP)/configure/CONFIG
 ifndef ARCH
-ARCH = rhel7-x86_64
+ARCH = linux-x86_64
 endif
 
 INSTALL_LOCATION = ../..

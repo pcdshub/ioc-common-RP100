@@ -8,7 +8,7 @@ file archive_iocAdmin.tpl-arch
 }
 
 $$LOOP(DEVICE)
-file gsd.archive
+file rp100.archive
 {
     { IOC = "$$IOC_PV", BASE  = "$$BASE" }
 }

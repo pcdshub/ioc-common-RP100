@@ -9,36 +9,42 @@ include $(TOP)/configure/CONFIG
 # Build an ioc application
 # Use PROD_IOC_RTEMS for RTEMS only
 # Use PROD_IOC_Linux for Linux only
-PROD_IOC = gsd
+PROD_IOC = rp100
 
-# gsd.dbd will be created and installed
-DBD += gsd.dbd
+# rp100.dbd will be created and installed
+DBD += rp100.dbd
 
-# gsd.dbd will be made up from these files:
-gsd_DBD += base.dbd
-gsd_DBD += iocAdmin.dbd
-gsd_DBD += asSupport.dbd
-gsd_DBD += asyn.dbd
-gsd_DBD += drvAsynSerialPort.dbd
-gsd_DBD += drvAsynIPPort.dbd
-gsd_DBD += stream.dbd
+# rp100.dbd will be made up from these files:
+rp100_DBD += base.dbd
+rp100_DBD += iocAdmin.dbd
+rp100_DBD += asSupport.dbd
+rp100_DBD += asyn.dbd
+rp100_DBD += drvAsynSerialPort.dbd
+rp100_DBD += drvAsynIPPort.dbd
+rp100_DBD += stream.dbd
 
 # <name>_registerRecordDeviceDriver.cpp will be created from <name>.dbd
-gsd_SRCS += gsd_registerRecordDeviceDriver.cpp
-gsd_SRCS_DEFAULT += gsdMain.cpp
+rp100_SRCS += rp100_registerRecordDeviceDriver.cpp
+rp100_SRCS_DEFAULT += rp100Main.cpp
 
 # Add locally compiled object code
-#gsd_SRCS += dbSubExample.c
+#rp100_SRCS += dbSubExample.c
 
-gsd_LIBS += devIocStats
-gsd_LIBS += autosave
-gsd_LIBS += asyn
-gsd_LIBS += stream
-gsd_LIBS += $(EPICS_BASE_IOC_LIBS)
+rp100_LIBS += devIocStats
+rp100_LIBS += autosave
+rp100_LIBS += asyn
+rp100_LIBS += stream
+rp100_LIBS += $(EPICS_BASE_IOC_LIBS)
 
-ifneq '$(T_A)' 'RTEMS-beatnik'
-PROD_SYS_LIBS_DEFAULT += pcre
+ifdef PCRE
+LIB_LIBS += pcre2
+else
+ifneq ($(words $(PCRE_LIB) $(PCRE_INCLUDE)),0)
+PROD_SYS_LIBS_DEFAULT += pcre2
+PROD_SYS_LIBS_WIN32 += $(PCRE_LIB)\\pcre
 SHRLIB_DEPLIB_DIRS += $(PCRE_LIB)
+USR_LDFLAGS+=-L$(PCRE_LIB)
+endif
 endif
 
 #===========================
@@ -46,4 +52,3 @@ endif
 include $(TOP)/configure/RULES
 #----------------------------------------
 #  ADD RULES AFTER THIS LINE
-

@@ -1,4 +1,4 @@
-# ioc-common-generic_streamdevice
+# ioc-rix-RP100
 
 This repository provides a **generic StreamDevice IOC** skeleton. It does not control any actual device, but is meant to be copied and customized to implement an IOC communicating with a text-based protocol device over TCP/IP.
 
@@ -16,6 +16,7 @@ A **Common IOC** defines a general device type, along with the protocol and meth
 
 ## Getting Started: Making This Useful
 
+<<<<<<< Updated upstream
 Please refer to the [IOC Design and Deployment Guide](https://confluence.slac.stanford.edu/spaces/PCDS/pages/92871122/IOC+Design+and+Deployment+Guide) for extensive instructions. The steps here are an abridged version.
 
 > **Note:**  
@@ -84,4 +85,19 @@ You can run this script directly to start the IOC, but using [IOC Manager](https
 
 - Use the `ioc-deploy` script for deployment.
 
+=======
+What needs to be added to make this a useful IOC?
+    - app/srcProtocol/rp100.proto needs to have a protocol added to it.
+    - app/Db/rp100.db needs to have records added that use this protocol.
+    - app/Db/rp100.req needs to have a list of PVs for autosaving.
+    - app/Db/rp100.archive needs to have a list of PVs and periods for
+      archiving.
+    - rp100Screens needs to have a top level screen defined.
+    - iocBoot/templates/edm-ioc.sh needs to be changed to call edm
+      on this top-level screen.
+
+In general, "rp100" is not the greatest name for things in the IOC.  You
+might want to copy these files, and then go through and change these to
+names more appropriate to the actual IOC being developed.
+>>>>>>> Stashed changes
 
