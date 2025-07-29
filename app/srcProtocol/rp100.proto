@@ -58,7 +58,7 @@ GET_VOLT_SLEW {
 
 # Get the output the source is slewing to (target voltage)
 GET_VOLT { 
-	out "\x53\x4f\x55\x52\\$1x3a\x56\x4f\x4c\x54\x3f";
+	out "\x53\x4f\x55\x52\$1\x3a\x56\x4f\x4c\x54\x3f";
 	in "%g";
 }
 

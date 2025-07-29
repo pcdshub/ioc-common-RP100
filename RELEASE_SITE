@@ -7,8 +7,10 @@ endif
 PSPKG_ROOT          = /cds/group/pcds/pkg_mgr
 #production: create the data dir structure there
 #IOC_DATA            = /cds/data/iocData
+HOST_ARCH = $(EPICS_HOST_ARCH)
+#$(info ARCH=$(ARCH))
 # test
-IOC_DATA = /cds/group/pcds/epics-dev/ysmandza/ioc/data
+#IOC_DATA = /cds/group/pcds/epics-dev/ysmandza/ioc/data
 
 $(info Setting BASE_MODULE_VERSION to $(BASE_MODULE_VERSION) in $(lastword $(MAKEFILE_LIST)))
 

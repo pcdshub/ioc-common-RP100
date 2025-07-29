@@ -5,7 +5,7 @@ ifneq (,$(IOC_APPL_TOP))
 TOP = $(IOC_APPL_TOP)
 endif
 
-ARCH=$(EPICS_HOST_ARCH)
+ARCH=$(T_A)
 
 include $(TOP)/configure/CONFIG
 ifndef ARCH

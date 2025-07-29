@@ -1,4 +1,4 @@
-#!$$IOCTOP/bin/$$IF(ARCH,$$ARCH,linux-86_64)/rp100
+#!$$IOCTOP/bin/$$IF(ARCH,$$ARCH,linux-x86_64)/rp100
 
 epicsEnvSet( "IOCNAME",	  "$$IOCNAME" )
 epicsEnvSet( "ENGINEER",  "$$ENGINEER" )
