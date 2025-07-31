@@ -18,6 +18,6 @@ pushd $$IOCTOP/gsdScreens
 $$LOOP(DEVICE)
 
 # TODO:
-# pydm -m "prefix=$$BASE,name=$$IOC_PV" gsd.ui &
-echo "No screens for the Generic StreamDevice yet."
+pydm -m "BASE=$$BASE,name=$$IOC_PV" gsd.ui &
+#echo "No screens for the Generic StreamDevice yet."
 $$ENDLOOP(DEVICE)
