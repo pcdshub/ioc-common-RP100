@@ -155,7 +155,7 @@ record(ai, "$(BASE)SOUR1_MEAS_CURR") {
     field(SCAN, ".5 second")	
     field(HOPR, "0.007")
     field(LOPR, "-0.007")
-    field(EGU,  "V")
+    field(EGU,  "A")
     field(PREC, "4")
 }
 
@@ -254,7 +254,7 @@ record(ai, "$(BASE)SOUR2_MEAS_CURR") {
     field(SCAN, ".5 second")	
     field(HOPR, "0.007")
     field(LOPR, "-0.007")
-    field(EGU,  "V")
+    field(EGU,  "A")
     field(PREC, "4")
 }
 
