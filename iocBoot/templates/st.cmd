@@ -1,4 +1,4 @@
-#!$$IOCTOP/bin/$$IF(ARCH,$$ARCH,linux-x86_64)/rp100
+#!$$IOCTOP/bin/$$IF(ARCH,$$ARCH,rhel9-x86_64)/rp100
 
 epicsEnvSet( "IOCNAME",	  "$$IOCNAME" )
 epicsEnvSet( "ENGINEER",  "$$ENGINEER" )
@@ -41,6 +41,7 @@ $$ENDLOOP(DEVICE)
 ## Load record instances
 dbLoadRecords( "db/iocSoft.db", "IOC=$(IOC_PV)")
 dbLoadRecords( "db/save_restoreStatus.db", "P=$(IOC_PV):")
+dbLoadRecords( "db/asynRecord.db", "P=$(IOC_PV):, R=")
 $$LOOP(DEVICE)
 dbLoadRecords( "db/rp100.db", "BASE=$$BASE, DEV=bus$$INDEX" )
 $$ENDLOOP(DEVICE)

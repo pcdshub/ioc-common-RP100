@@ -1,4 +1,4 @@
-record(bo, "$(BASE)RP100_RESET") {
+record(bo, "$(BASE):RP100_RESET") {
     field(DESC, "instrument resetting")
     field(DTYP, "stream")
     field(ZNAM, "")
@@ -6,7 +6,7 @@ record(bo, "$(BASE)RP100_RESET") {
     field(OUT,  "@rp100.proto RESET() $(DEV)")
 }
 
-record(bo, "$(BASE)RP100_CLEAR") {
+record(bo, "$(BASE):RP100_CLEAR") {
     field(DESC, "Clears all status/errors")
     field(DTYP, "stream")
     field(ZNAM, "")
@@ -14,7 +14,7 @@ record(bo, "$(BASE)RP100_CLEAR") {
     field(OUT,  "@rp100.proto CLEAR() $(DEV)")
 }
 
-record (longin, "$(BASE)RP100_SYSTEM_ERROR_CNT")
+record (longin, "$(BASE):RP100_SYSTEM_ERROR_CNT")
 {
     field (DESC, "errors in the device queue")
     field (DTYP, "stream")
@@ -25,15 +25,15 @@ record (longin, "$(BASE)RP100_SYSTEM_ERROR_CNT")
 # Poll error queue and update local error string
 # once, operator needs to acknowledge error and 
 # explicitely clear the status.
-record(calcout, "$(BASE)PROC_ERROR") {
+record(calcout, "$(BASE):PROC_ERROR") {
     field(DESC, "disable measurement")
-    field(INPA, "$(BASE)RP100_SYSTEM_ERROR_CNT CP")
+    field(INPA, "$(BASE):RP100_SYSTEM_ERROR_CNT CP")
     field(CALC, "A#0")
     field(OOPT, "Transition To Non-zero")
-    field(OUT,  "$(BASE)RP100_SYSTEM_ERROR.PROC")
+    field(OUT,  "$(BASE):RP100_SYSTEM_ERROR.PROC")
 }
 
-record(stringin, "$(BASE)RP100_SYSTEM_ERROR")
+record(stringin, "$(BASE):RP100_SYSTEM_ERROR")
 {
     field(DESC, "error code and description")
     field(SCAN, "Passive")
@@ -41,13 +41,13 @@ record(stringin, "$(BASE)RP100_SYSTEM_ERROR")
     field(INP,  "@rp100.proto GET_SYSTEM_ERROR() $(DEV)")
 }
 
-record(stringin, "$(BASE)RP100_IDN") {
+record(stringin, "$(BASE):RP100_IDN") {
     field(DESC, "Full device identification")
     field(DTYP, "stream")
     field(INP,  "@rp100.proto GET_IDN() $(DEV)")
 }
 
-record(seq, "$(BASE)INIT")
+record(seq, "$(BASE):INIT")
 {
    field(DESC, "Init RP100")
    field(SCAN, "Passive")
@@ -55,25 +55,25 @@ record(seq, "$(BASE)INIT")
    field(DO2, "1")
    field(DO3, "1")
    field(DO3, "1")
-   field(LNK1, "$(BASE)RP100_CLEAR.PROC")
+   field(LNK1, "$(BASE):RP100_CLEAR.PROC")
    field(DLY2, "0.2") # Give time for RP100 to reset
-   field(LNK2, "$(BASE)RP100_RESET.PROC")
+   field(LNK2, "$(BASE):RP100_RESET.PROC")
    field(DLY3, "0.2") # Give time for RP100 to clear
-   field(LNK3, "$(BASE)RP100_IDN.PROC")
+   field(LNK3, "$(BASE):RP100_IDN.PROC")
    field(PINI, "YES")
 }
 
 ## channels properties
-record(bo, "$(BASE)SOUR1_EN") {
+record(bo, "$(BASE):SOUR1_EN") {
     field(DESC, "Enable/Disable HV channel")
     field(DTYP, "stream")
     field(ZNAM, "Disabled")
     field(ONAM, "Enabled")
-    field(FLNK, "$(BASE)SOUR1_EN_RBV")
+    field(FLNK, "$(BASE):SOUR1_EN_RBV")
     field(OUT,  "@rp100.proto SET_OUTP(1) $(DEV)")
 }
 
-record(bi, "$(BASE)SOUR1_EN_RBV") {
+record(bi, "$(BASE):SOUR1_EN_RBV") {
     field(DESC, "Enable/Disable HV channel")
     field(DTYP, "stream")
     field(ZNAM, "Disabled")
@@ -82,7 +82,7 @@ record(bi, "$(BASE)SOUR1_EN_RBV") {
 }
 
 # 0.5 mM/s minimum smooth ramp.
-record(ao, "$(BASE)SOUR1_SLEW_RATE") {
+record(ao, "$(BASE):SOUR1_SLEW_RATE") {
     field(DESC, "Set voltage slew rate")
     field(DTYP, "stream")
     field(OUT,  "@rp100.proto SET_VOLT_SLEW(1) $(DEV)")
@@ -90,10 +90,10 @@ record(ao, "$(BASE)SOUR1_SLEW_RATE") {
     field(LOPR, "0.0005")
     field(EGU,  "V/s")
     field(PREC, "4")
-    field(FLNK, "$(BASE)SOUR1_SLEW_RATE_RBV")
+    field(FLNK, "$(BASE):SOUR1_SLEW_RATE_RBV")
 }
 
-record(ai, "$(BASE)SOUR1_SLEW_RATE_RBV") {
+record(ai, "$(BASE):SOUR1_SLEW_RATE_RBV") {
     field(DESC, "Set voltage slew rate")
     field(DTYP, "stream")
     field(INP,  "@rp100.proto GET_VOLT_SLEW(1) $(DEV)")
@@ -101,7 +101,7 @@ record(ai, "$(BASE)SOUR1_SLEW_RATE_RBV") {
     field(PREC, "4")
 }
 
-record(ao, "$(BASE)SOUR1_TARGET_VOLT") {
+record(ao, "$(BASE):SOUR1_TARGET_VOLT") {
     field(DESC, "change out voltage")
     field(DTYP, "stream")
     field(OUT,  "@rp100.proto SET_VOLT(1) $(DEV)")
@@ -109,21 +109,21 @@ record(ao, "$(BASE)SOUR1_TARGET_VOLT") {
     field(LOPR, "-200")
     field(EGU,  "V")
     field(PREC, "4")
-    field(FLNK, "$(BASE)SOUR1_TARGET_PROC")
+    field(FLNK, "$(BASE):SOUR1_TARGET_PROC")
 }
 
-record(seq, "$(BASE)SOUR1_TARGET_PROC")
+record(seq, "$(BASE):SOUR1_TARGET_PROC")
 {
    field(DESC, "Get source 1 target readbacks")
    field(SCAN, "Passive")
    field(DO1, "1")
    field(DO2, "1")
-   field(LNK1, "$(BASE)SOUR1_TARGET_VOLT_RBV.PROC")
+   field(LNK1, "$(BASE):SOUR1_TARGET_VOLT_RBV.PROC")
 #   field(DLY2, "0.2") 
-   field(LNK2, "$(BASE)SOUR1_OUT_VOLT.PROC")
+   field(LNK2, "$(BASE):SOUR1_OUT_VOLT.PROC")
 }
 
-record(ai, "$(BASE)SOUR1_TARGET_VOLT_RBV") {
+record(ai, "$(BASE):SOUR1_TARGET_VOLT_RBV") {
     field(DESC, "Measure output voltage")
     field(DTYP, "stream")
     field(INP,  "@rp100.proto GET_VOLT(1) $(DEV)")
@@ -131,7 +131,7 @@ record(ai, "$(BASE)SOUR1_TARGET_VOLT_RBV") {
     field(PREC, "4")
 }
 
-record(ai, "$(BASE)SOUR1_OUT_VOLT") {
+record(ai, "$(BASE):SOUR1_OUT_VOLT") {
     field(DESC, "Measure output voltage")
     field(DTYP, "stream")
     field(INP,  "@rp100.proto GET_VOLT_NOW(1) $(DEV)")
@@ -139,7 +139,7 @@ record(ai, "$(BASE)SOUR1_OUT_VOLT") {
     field(PREC, "4")
 }
 
-record(ai, "$(BASE)SOUR1_MEAS_VOLT") {
+record(ai, "$(BASE):SOUR1_MEAS_VOLT") {
     field(DESC, "Measure output voltage")
     field(DTYP, "stream")
     field(INP,  "@rp100.proto MEAS_VOLT(1) $(DEV)")
@@ -148,7 +148,7 @@ record(ai, "$(BASE)SOUR1_MEAS_VOLT") {
     field(PREC, "4")
 }
 
-record(ai, "$(BASE)SOUR1_MEAS_CURR") {
+record(ai, "$(BASE):SOUR1_MEAS_CURR") {
     field(DESC, "Measure output current")
     field(DTYP, "stream")
     field(INP,  "@rp100.proto MEAS_CURR(1) $(DEV)")
@@ -160,16 +160,16 @@ record(ai, "$(BASE)SOUR1_MEAS_CURR") {
 }
 
 ## channel 2
-record(bo, "$(BASE)SOUR2_EN") {
+record(bo, "$(BASE):SOUR2_EN") {
     field(DESC, "Enable/Disable HV channel")
     field(DTYP, "stream")
     field(ZNAM, "Disabled")
     field(ONAM, "Enabled")
-    field(FLNK, "$(BASE)SOUR2_EN_RBV")
+    field(FLNK, "$(BASE):SOUR2_EN_RBV")
     field(OUT,  "@rp100.proto SET_OUTP(2) $(DEV)")
 }
 
-record(bi, "$(BASE)SOUR2_EN_RBV") {
+record(bi, "$(BASE):SOUR2_EN_RBV") {
     field(DESC, "Enable/Disable HV channel")
     field(DTYP, "stream")
     field(ZNAM, "Disabled")
@@ -178,7 +178,7 @@ record(bi, "$(BASE)SOUR2_EN_RBV") {
 }
 
 # 0.5 mM/s minimum smooth ramp.
-record(ao, "$(BASE)SOUR2_SLEW_RATE") {
+record(ao, "$(BASE):SOUR2_SLEW_RATE") {
     field(DESC, "Set voltage slew rate")
     field(DTYP, "stream")
     field(OUT,  "@rp100.proto SET_VOLT_SLEW(2) $(DEV)")
@@ -186,10 +186,10 @@ record(ao, "$(BASE)SOUR2_SLEW_RATE") {
     field(LOPR, "0.0005")
     field(EGU,  "V/s")
     field(PREC, "4")
-    field(FLNK, "$(BASE)SOUR2_SLEW_RATE_RBV")
+    field(FLNK, "$(BASE):SOUR2_SLEW_RATE_RBV")
 }
 
-record(ai, "$(BASE)SOUR2_SLEW_RATE_RBV") {
+record(ai, "$(BASE):SOUR2_SLEW_RATE_RBV") {
     field(DESC, "Set voltage slew rate")
     field(DTYP, "stream")
     field(INP,  "@rp100.proto GET_VOLT_SLEW(2) $(DEV)")
@@ -198,7 +198,7 @@ record(ai, "$(BASE)SOUR2_SLEW_RATE_RBV") {
 }
 
 
-record(ao, "$(BASE)SOUR2_TARGET_VOLT") {
+record(ao, "$(BASE):SOUR2_TARGET_VOLT") {
     field(DESC, "change out voltage")
     field(DTYP, "stream")
     field(OUT,  "@rp100.proto SET_VOLT(2) $(DEV)")
@@ -206,21 +206,21 @@ record(ao, "$(BASE)SOUR2_TARGET_VOLT") {
     field(LOPR, "-200")
     field(EGU,  "V")
     field(PREC, "4")
-    field(FLNK, "$(BASE)SOUR2_TARGET_PROC")
+    field(FLNK, "$(BASE):SOUR2_TARGET_PROC")
 }
 
-record(seq, "$(BASE)SOUR2_TARGET_PROC")
+record(seq, "$(BASE):SOUR2_TARGET_PROC")
 {
    field(DESC, "Get source 2 target readbacks")
    field(SCAN, "Passive")
    field(DO1, "1")
    field(DO2, "1")
-   field(LNK1, "$(BASE)SOUR2_TARGET_VOLT_RBV.PROC")
+   field(LNK1, "$(BASE):SOUR2_TARGET_VOLT_RBV.PROC")
 #   field(DLY2, "0.2")
-   field(LNK2, "$(BASE)SOUR2_OUT_VOLT.PROC")
+   field(LNK2, "$(BASE):SOUR2_OUT_VOLT.PROC")
 }
 
-record(ai, "$(BASE)SOUR2_TARGET_VOLT_RBV") {
+record(ai, "$(BASE):SOUR2_TARGET_VOLT_RBV") {
     field(DESC, "Measure output voltage")
     field(DTYP, "stream")
     field(INP,  "@rp100.proto GET_VOLT(2) $(DEV)")
@@ -228,7 +228,7 @@ record(ai, "$(BASE)SOUR2_TARGET_VOLT_RBV") {
     field(PREC, "4")
 }
 
-record(ai, "$(BASE)SOUR2_OUT_VOLT") {
+record(ai, "$(BASE):SOUR2_OUT_VOLT") {
     field(DESC, "Measure output voltage")
     field(DTYP, "stream")
     field(INP,  "@rp100.proto GET_VOLT_NOW(2) $(DEV)")
@@ -236,7 +236,7 @@ record(ai, "$(BASE)SOUR2_OUT_VOLT") {
     field(PREC, "4")
 }
 
-record(ai, "$(BASE)SOUR2_MEAS_VOLT") {
+record(ai, "$(BASE):SOUR2_MEAS_VOLT") {
     field(DESC, "Measure output voltage")
     field(DTYP, "stream")
     field(INP,  "@rp100.proto MEAS_VOLT(2) $(DEV)")
@@ -247,7 +247,7 @@ record(ai, "$(BASE)SOUR2_MEAS_VOLT") {
     field(PREC, "4")
 }
 
-record(ai, "$(BASE)SOUR2_MEAS_CURR") {
+record(ai, "$(BASE):SOUR2_MEAS_CURR") {
     field(DESC, "Measure output current")
     field(DTYP, "stream")
     field(INP,  "@rp100.proto MEAS_CURR(2) $(DEV)")

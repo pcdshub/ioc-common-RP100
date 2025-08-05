@@ -1,5 +1,4 @@
 # 
-
 Terminator  = CR LF;
 ReplyTimeout = 3000;
 ReadTimeout   =  100;
@@ -100,5 +99,3 @@ SET_VOLT {
 	wait 200;  
 	@init { GET_VOLT_NOW; }  
 }
-
-
