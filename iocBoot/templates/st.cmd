@@ -41,7 +41,7 @@ $$ENDLOOP(DEVICE)
 ## Load record instances
 dbLoadRecords( "db/iocSoft.db", "IOC=$(IOC_PV)")
 dbLoadRecords( "db/save_restoreStatus.db", "P=$(IOC_PV):")
-dbLoadRecords( "db/asynRecord.db", "P=$(IOC_PV):, R=")
+dbLoadRecords( "db/asynRecord.db", "P=$(IOC_PV):, R=, PORT=$$PORT, ADDR=0, OMAX=0, IMAX=0")
 $$LOOP(DEVICE)
 dbLoadRecords( "db/rp100.db", "BASE=$$BASE, DEV=bus$$INDEX" )
 $$ENDLOOP(DEVICE)
