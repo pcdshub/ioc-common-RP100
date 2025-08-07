@@ -18,6 +18,6 @@ pushd $$IOCTOP/rp100Screens
 $$LOOP(DEVICE)
 
 # TODO:
-pydm -m "BASE=$$BASE,name=$$IOC_PV" rp100.ui &
+pydm -m "BASE=$$BASE:,name=$$IOC_PV" rp100.ui &
 #echo "No screens for the Generic StreamDevice yet."
 $$ENDLOOP(DEVICE)
