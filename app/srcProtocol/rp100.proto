@@ -1,0 +1,101 @@
+# 
+Terminator  = CR LF;
+ReplyTimeout = 3000;
+ReadTimeout   =  100;
+WriteTimeout  =  100;
+
+###############################
+# Device properties Protocols
+################################
+
+# clear errors
+CLEAR { 
+	out "\x2a\x43\x4c\x53"; 
+	wait 50;
+}
+
+# reset device
+RESET {	
+	out "\x2a\x52\x53\x54";
+	wait 50;
+}
+
+# retrieves the number of erros in queue
+GET_SYSTEM_ERROR_CNT { 
+	out "\x53\x59\x53\x54\x3a\x45\x52\x52\x3a\x43\x4f\x55\x4e\x54\x3f";
+	in "%i";
+}
+
+# retrieve earliest error in error queue
+GET_SYSTEM_ERROR { 
+	out "\x53\x59\x53\x54\x3a\x45\x52\x52\x3f";
+	in "%#s";
+}
+
+# get device identification info
+GET_IDN {  
+	out "\x2a\x49\x44\x4e\x3f";
+	in "%#s"; 
+}
+
+#############################################
+# Sources properties Protocols
+###############################################
+### Getters
+
+# Enable/Disbale the channle output reaback
+GET_OUTP { 
+	out "\x4f\x55\x54\x50\$1\x3f";
+	in "%x" 
+}
+
+# Get the channel slew rate
+GET_VOLT_SLEW {  
+	out "\x53\x4f\x55\x52\$1\x3a\x56\x4f\x4c\x54\x3a\x53\x4c\x45\x57\x3f";
+	in "%g"; 
+}
+
+# Get the output the source is slewing to (target voltage)
+GET_VOLT { 
+	out "\x53\x4f\x55\x52\$1\x3a\x56\x4f\x4c\x54\x3f";
+	in "%g";
+}
+
+# Querry instantaneous source output
+GET_VOLT_NOW { 
+	out "\x53\x4f\x55\x52\$1\x3a\x56\x4f\x4c\x54\x3a\x4e\x4f\x57\x3f";
+	in "%g";
+}
+
+# Measure instantaneous channel slewing voltage output
+MEAS_VOLT { 
+	out "\x4d\x45\x41\x53\$1\x3a\x56\x4f\x4c\x54\x3f";
+	in "%g";
+}
+
+# Measure instantaneous channel slewing current output
+MEAS_CURR { 
+	out "\x4d\x45\x41\x53\$1\x3a\x43\x55\x52\x52\x3f";
+	in "%g";
+}
+
+## Setters ###
+
+# Enable/Disbale the channle output
+SET_OUTP { 
+	out "\x4f\x55\x54\x50\$1\x20%x"; 
+}
+
+# set the channel slew rate
+SET_VOLT_SLEW {  
+	out "\x53\x4f\x55\x52\$1\x3a\x56\x4f\x4c\x54\x3a\x53\x4c\x45\x57\x20%3.4f"; 
+	wait 20; 
+	@init { GET_VOLT_SLEW; } 
+}
+
+# set channel output voltage
+SET_VOLT {  	
+	out "\x53\x4f\x55\x52\$1\x3a\x56\x4f\x4c\x54\x20%3.4f"; 
+	wait 200;  
+	@init { GET_VOLT_NOW; }  
+}

@@ -13,11 +13,11 @@ fi
 source /cds/group/pcds/pyps/conda/pcds_conda
 
 #TODO:change gsd to device name
-pushd $$IOCTOP/gsdScreens
+pushd $$IOCTOP/rp100Screens
 
 $$LOOP(DEVICE)
 
 # TODO:
-# pydm -m "prefix=$$BASE,name=$$IOC_PV" gsd.ui &
-echo "No screens for the Generic StreamDevice yet."
+pydm -m "BASE=$$BASE:,name=$$IOC_PV" rp100.ui &
+#echo "No screens for the Generic StreamDevice yet."
 $$ENDLOOP(DEVICE)

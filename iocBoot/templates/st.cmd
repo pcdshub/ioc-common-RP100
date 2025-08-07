@@ -1,4 +1,4 @@
-#!$$IOCTOP/bin/$$IF(ARCH,$$ARCH,linux-86_64)/gsd
+#!$$IOCTOP/bin/$$IF(ARCH,$$ARCH,rhel9-x86_64)/rp100
 
 epicsEnvSet( "IOCNAME",	  "$$IOCNAME" )
 epicsEnvSet( "ENGINEER",  "$$ENGINEER" )
@@ -15,8 +15,8 @@ cd("$(IOCTOP)")
 < /reg/d/iocCommon/All/pre_linux.cmd
 
 ## Register all support components
-dbLoadDatabase( "dbd/gsd.dbd" )
-gsd_registerRecordDeviceDriver(pdbbase)
+dbLoadDatabase( "dbd/rp100.dbd" )
+rp100_registerRecordDeviceDriver(pdbbase)
 
 
 ## Set up IOC/hardware links -- LAN connection
@@ -41,8 +41,9 @@ $$ENDLOOP(DEVICE)
 ## Load record instances
 dbLoadRecords( "db/iocSoft.db", "IOC=$(IOC_PV)")
 dbLoadRecords( "db/save_restoreStatus.db", "P=$(IOC_PV):")
+dbLoadRecords( "db/asynRecord.db", "P=$(IOC_PV):, R=, PORT=$$PORT, ADDR=0, OMAX=0, IMAX=0")
 $$LOOP(DEVICE)
-dbLoadRecords( "db/gsd.db", "BASE=$$BASE, DEV=bus$$INDEX" )
+dbLoadRecords( "db/rp100.db", "BASE=$$BASE, DEV=bus$$INDEX" )
 $$ENDLOOP(DEVICE)
 
 ## Setup autosave
@@ -68,4 +69,4 @@ create_monitor_set( "autoSettings.req", 5, "" )
 create_monitor_set( "$$IOCNAME.req", 5, "" )
 
 # All IOCs should dump some common info after initial startup.
-< /reg/d/iocCommon/All/post_linux.cmd
+<  /reg/d/iocCommon/All/post_linux.cmd

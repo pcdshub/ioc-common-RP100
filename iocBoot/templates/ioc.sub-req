@@ -8,7 +8,7 @@ file autosave_iocAdmin.tpl-req
 }
 
 $$LOOP(DEVICE)
-file gsd.req
+file rp100.req
 {
     { BASE = "$$BASE" }
 }

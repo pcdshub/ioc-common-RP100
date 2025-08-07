@@ -13,19 +13,19 @@ include $(TOP)/configure/CONFIG
 DB_INSTALLS += $(IOCADMIN)/db/iocSoft.db
 DB_INSTALLS += $(AUTOSAVE)/db/save_restoreStatus.db
 DB_INSTALLS += $(ASYN)/db/asynRecord.db
-DB += gsd.db
+DB += rp100.db
 
 #----------------------------------------------------
 # Create and install (or just install)
 # Archive files, templates, substitutions like this
 #
-ARCHIVE += gsd.archive
+ARCHIVE += rp100.archive
 
 #----------------------------------------------------
 # Create and install (or just install)
 # Autosave request files, templates, substitutions like this
 #
-REQ += gsd.req
+REQ += rp100.req
 
 # Nothing to build for autosave, just install from $AUTOSAVE/db
 DB_INSTALLS += $(AUTOSAVE)/db/save_restoreStatus.db

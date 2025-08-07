@@ -5,6 +5,7 @@ ifeq ($(origin EPICS_HOST_ARCH), undefined)
 EPICS_HOST_ARCH     := $(shell $(EPICS_SITE_TOP)/base/$(BASE_MODULE_VERSION)/startup/EpicsHostArch)
 endif
 PSPKG_ROOT          = /cds/group/pcds/pkg_mgr
+IOC_DATA            = /cds/data/iocData
 
 $(info Setting BASE_MODULE_VERSION to $(BASE_MODULE_VERSION) in $(lastword $(MAKEFILE_LIST)))
 

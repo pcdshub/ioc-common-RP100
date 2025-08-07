@@ -12,7 +12,7 @@ include $(TOP)/configure/CONFIG
 # Enable this line to install thermotek.proto to $(TOP)/protocol
 # However, this is not necessary as long as your st.cmd sets
 # the env var STREAM_PROTOCOL_PATH to $(TOP)/app/srcProtocol
-COPY_FILES += gsd.proto
+COPY_FILES += rp100.proto
 
 # What subdirectory should hold the protcol files.  For this example,
 # $INSTALL_LOCATION/protocol will be created.
